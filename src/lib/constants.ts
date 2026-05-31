@@ -1,0 +1,3 @@
+export const TOP_CATEGORIES_LIMIT = 3;
+export const DELETE_EXPENSE_ANIMATION_MS = 280;
+export const SUBMIT_SUCCESS_ANIMATION_MS = 600;

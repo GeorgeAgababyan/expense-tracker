@@ -2,16 +2,17 @@
 
 import { FormEvent, useState } from "react";
 import { Card } from "@/components/ui/Card";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SUBMIT_SUCCESS_ANIMATION_MS } from "@/lib/constants";
 import { getTodayISO } from "@/lib/format";
 import { parseAmountInput } from "@/lib/parse";
-import { inputClass, labelClass } from "@/lib/ui";
+import { inputClass } from "@/lib/ui";
 import { EXPENSE_CATEGORIES, type NewExpense } from "@/types/expense";
 
 type ExpenseFormProps = {
   onAdd: (expense: NewExpense) => void;
 };
+
+const compactInput = `${inputClass} input-field--compact`;
 
 export function ExpenseForm({ onAdd }: ExpenseFormProps) {
   const [amount, setAmount] = useState("");
@@ -39,42 +40,39 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
   }
 
   return (
-    <Card delay={100}>
-      <SectionHeader
-        overline="Добавить"
-        title="Новый расход"
-        description="Сумма, категория и дата — всё сохранится локально"
-      />
-
-      <form onSubmit={handleSubmit} className="mt-8">
-        <div className="grid gap-6 sm:grid-cols-2">
-          <label className="block sm:col-span-2">
-            <span className={labelClass}>Сумма</span>
-            <div className="relative">
-              <span className="font-amount pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-zinc-400">
-                ₽
-              </span>
-              <input
-                type="number"
-                inputMode="decimal"
-                min="0"
-                step="0.01"
-                placeholder="0"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className={`${inputClass} font-amount pl-9 text-lg tracking-tight`}
-              />
-            </div>
+    <Card delay={100} className="!p-4 sm:!p-5">
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="relative block sm:col-span-2">
+            <span className="sr-only">Сумма</span>
+            <span
+              className="font-amount pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-zinc-400"
+              aria-hidden
+            >
+              ₽
+            </span>
+            <input
+              type="number"
+              inputMode="decimal"
+              min="0"
+              step="0.01"
+              placeholder="Сумма"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className={`${compactInput} font-amount w-full pl-8`}
+              aria-label="Сумма"
+            />
           </label>
 
           <label className="block">
-            <span className={labelClass}>Категория</span>
+            <span className="sr-only">Категория</span>
             <select
               value={category}
               onChange={(e) =>
                 setCategory(e.target.value as NewExpense["category"])
               }
-              className={inputClass}
+              className={compactInput}
+              aria-label="Категория"
             >
               {EXPENSE_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -85,19 +83,20 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
           </label>
 
           <label className="block">
-            <span className={labelClass}>Дата</span>
+            <span className="sr-only">Дата</span>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className={inputClass}
+              className={compactInput}
+              aria-label="Дата"
             />
           </label>
         </div>
 
         {error && (
           <p
-            className="animate-fade-in mt-5 text-sm font-medium text-red-600 dark:text-red-400"
+            className="animate-fade-in text-sm font-medium text-red-600 dark:text-red-400"
             role="alert"
           >
             {error}
@@ -106,7 +105,7 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
 
         <button
           type="submit"
-          className={`btn-primary mt-8 w-full px-4 py-3.5 ${success ? "is-success" : ""}`}
+          className={`btn-primary w-full px-4 py-3 text-sm ${success ? "is-success" : ""}`}
         >
           Добавить расход
         </button>

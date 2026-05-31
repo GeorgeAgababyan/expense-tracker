@@ -21,35 +21,28 @@ export function MonthlySummary({
 }: MonthlySummaryProps) {
   return (
     <section
-      className="summary-card animate-fade-up p-6 opacity-0 sm:p-8"
+      className="summary-card summary-card--compact animate-fade-up relative z-[1] opacity-0"
       style={{ animationDelay: "0ms" }}
     >
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className="relative z-10 flex items-end justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-overline text-zinc-400 dark:text-zinc-500">
-            Итог за месяц
-          </p>
-          <p className="mt-2 text-sm font-medium capitalize text-zinc-500 dark:text-zinc-400">
+          <p className="text-overline !text-[10px]">Потрачено в этом месяце</p>
+          <p className="summary-month mt-0.5 truncate text-xs font-medium capitalize">
             {formatMonth(year, month)}
           </p>
         </div>
-
-        <div className="sm:text-right">
-          <p
-            key={total}
-            className="font-amount text-title-lg animate-count-pop text-zinc-900 dark:text-zinc-50"
-          >
-            {formatCurrency(total)}
-          </p>
-        </div>
+        <p
+          key={total}
+          className="font-amount text-title-lg shrink-0 animate-count-pop leading-none"
+        >
+          {formatCurrency(total)}
+        </p>
       </div>
 
-      <div className="card-divider !mt-6 !mb-0 sm:!mt-8" />
-
-      <p className="text-body-muted text-sm">
+      <p className="text-body-muted relative z-10 mt-2.5 text-xs leading-snug">
         {count === 0
-          ? "В этом месяце трат ещё не было"
-          : `${count} ${pluralExpenseWord(count)} в текущем месяце`}
+          ? "Пока без трат"
+          : `${count} ${pluralExpenseWord(count)}`}
       </p>
     </section>
   );

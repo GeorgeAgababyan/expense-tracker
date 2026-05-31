@@ -7,9 +7,12 @@ type CategoryDonutChartProps = {
   total: number;
 };
 
-function buildConicGradient(breakdown: CategoryBreakdown[], total: number): string {
+function buildConicGradient(
+  breakdown: CategoryBreakdown[],
+  total: number,
+): string {
   if (total <= 0 || breakdown.length === 0) {
-    return "conic-gradient(#e4e4e7 0deg 360deg)";
+    return "conic-gradient(#e2e8f0 0deg 360deg)";
   }
 
   let angle = 0;
@@ -34,18 +37,16 @@ export function CategoryDonutChart({
   const gradient = buildConicGradient(breakdown, total);
 
   return (
-    <div className="chart-donut relative mx-auto h-36 w-36 shrink-0">
+    <div className="chart-donut relative mx-auto h-[9.5rem] w-[9.5rem] shrink-0">
       <div
-        className="h-full w-full rounded-full transition-[background] duration-500 ease-out"
+        className="h-full w-full rounded-full transition-[background] duration-700 ease-out"
         style={{ background: gradient }}
         role="img"
         aria-label="Диаграмма расходов по категориям"
       />
-      <div className="absolute inset-[18%] flex flex-col items-center justify-center rounded-full bg-[var(--surface)] text-center">
-        <span className="text-overline text-zinc-400 dark:text-zinc-500">
-          Всего
-        </span>
-        <span className="font-amount mt-0.5 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+      <div className="absolute inset-[20%] flex flex-col items-center justify-center rounded-full bg-[var(--surface)] shadow-[var(--shadow-sm)]">
+        <span className="text-overline !text-[10px]">Всего</span>
+        <span className="font-amount mt-0.5 text-sm text-zinc-900 dark:text-zinc-50">
           {formatCurrency(total)}
         </span>
       </div>

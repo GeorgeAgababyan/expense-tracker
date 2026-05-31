@@ -24,37 +24,37 @@ export function ExpenseItem({ expense, onDelete, index }: ExpenseItemProps) {
   return (
     <li
       className={[
-        "expense-row group flex items-center gap-4 px-4 py-4 sm:px-5",
+        "expense-row group flex items-center gap-3.5 px-3.5 py-3.5 sm:gap-4 sm:px-4",
         "animate-fade-up opacity-0",
         isExiting && "animate-exit overflow-hidden",
       ]
         .filter(Boolean)
         .join(" ")}
       style={{
-        animationDelay: isExiting ? undefined : `${120 + index * 40}ms`,
+        animationDelay: isExiting ? undefined : `${100 + index * 45}ms`,
       }}
     >
       <div
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${style.bg}`}
+        className={`category-icon ring-1 ${style.icon}`}
         aria-hidden
       >
-        <span className={`h-2 w-2 rounded-full ${style.dot}`} />
+        <span className={`h-2.5 w-2.5 rounded-full ${style.dot}`} />
       </div>
 
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-3">
-          <p className="font-amount text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+          <p className="font-amount text-base font-semibold text-zinc-900 dark:text-zinc-50 sm:text-lg">
             {formatCurrency(expense.amount)}
           </p>
-          <time className="shrink-0 text-xs font-medium text-zinc-400 dark:text-zinc-500">
+          <time className="shrink-0 text-[11px] font-medium tracking-wide text-zinc-400 uppercase dark:text-zinc-500">
             {formatDate(expense.date)}
           </time>
         </div>
-        <p
-          className={`mt-1 inline-flex text-xs font-semibold ${style.text}`}
+        <span
+          className={`mt-1.5 inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold ${style.bg} ${style.text}`}
         >
           {expense.category}
-        </p>
+        </span>
       </div>
 
       <button

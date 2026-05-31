@@ -16,14 +16,14 @@ export function ExpenseList({ expenses, onDelete, hydrated }: ExpenseListProps) 
   const hasExpenses = hydrated && expenses.length > 0;
 
   return (
-    <Card delay={180} hover={!isEmpty}>
+    <Card delay={140} hover={!isEmpty}>
       <SectionHeader
         overline="История"
-        title="Все расходы"
-        description={hasExpenses ? "От новых к старым" : undefined}
+        title="Транзакции"
+        description={hasExpenses ? "Последние расходы" : undefined}
         action={
           hasExpenses ? (
-            <span className="font-amount mt-1 shrink-0 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600 transition-colors duration-300 dark:border-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-300">
+            <span className="badge-count font-amount mt-0.5">
               {expenses.length}
             </span>
           ) : undefined
@@ -33,11 +33,11 @@ export function ExpenseList({ expenses, onDelete, hydrated }: ExpenseListProps) 
       {!hydrated ? (
         <LoadingDots />
       ) : isEmpty ? (
-        <div className="mt-4">
-          <EmptyState />
+        <div className="mt-1">
+          <EmptyState variant="list" />
         </div>
       ) : (
-        <ul className="mt-8 flex flex-col gap-2" role="list">
+        <ul className="mt-6 flex flex-col gap-2" role="list">
           {expenses.map((expense, index) => (
             <ExpenseItem
               key={expense.id}

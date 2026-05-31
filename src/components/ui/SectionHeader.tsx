@@ -17,9 +17,7 @@ export function SectionHeader({
   return (
     <header className="flex items-start justify-between gap-4">
       <div className="min-w-0">
-        <p className="text-overline text-zinc-400 dark:text-zinc-500">
-          {overline}
-        </p>
+        <p className="text-overline">{overline}</p>
         <h2 className={`${sectionTitleClass} mt-1`}>{title}</h2>
         {description && <p className={sectionDescClass}>{description}</p>}
       </div>
